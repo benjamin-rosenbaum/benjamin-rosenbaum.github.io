@@ -17,7 +17,7 @@
 <generator>quarto-1.10.18</generator>
 <lastBuildDate>Wed, 28 Oct 2026 23:00:00 GMT</lastBuildDate>
 <item>
-  <title>When you should not scale time series for nonlinear analysis</title>
+  <title>Should you scale your time series for nonlinear analysis?</title>
   <dc:creator>Benjamin Rosenbaum</dc:creator>
   <link>https://dsquintana.com/posts/scaling-timeseries/</link>
   <description><![CDATA[ 
