@@ -23,6 +23,9 @@ about:
     - icon: bluesky
       text: Bluesky
       href: https://bsky.app/profile/benrosenbaum.bsky.social
+    - icon: house-fill
+      text: Institute
+      href: https://www.idiv.de/de/staff/benjamin-rosenbaum/
 editor: 
   markdown: 
     wrap: 72
