@@ -1,6 +1,5 @@
-# NOTE: _site/ is deliberately NOT ignored. Netlify serves it directly, because
-# its build image has no R and this site renders publications.qmd through knitr.
-# Run `quarto render` before pushing or the deployed site will be stale.
+# docs/ is the rendered site served by GitHub Pages and must be committed.
+# Run quarto render before pushing, or the live site will be stale.
 
 /.quarto/
 _freeze/

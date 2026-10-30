@@ -38,39 +38,3 @@ My scientific focus lies at the interface of modeling and statistics, including 
 
 :::
 
-<!-- ## Research interests -->
-
-<!-- - The role of the oxytocin system in health and wellbeing -->
-<!-- - Cardiac psychophysiology -->
-<!-- - Evidence synthesis -->
-<!-- - Meta-science -->
-
-<!-- ## Featured papers -->
-
-<!-- ::: featured -->
-<!-- [**Genetic pathways linking oxytocin-vasotocin hypothalamic subunit -->
-<!-- architecture with psychiatric and metabolic -->
-<!-- traits**](https://doi.org/10.1038/s41380-026-03508-4)<br> Sartorius et -->
-<!-- al., *Molecular Psychiatry* (2026)<br> Estimating the genetic overlap -->
-<!-- between hypothalamic structure and the psychiatric and metabolic -->
-<!-- conditions that so often co-occur. -->
-<!-- [[Preprint](https://www.medrxiv.org/content/10.1101/2025.03.14.25323974v1)]{.featured-links} -->
-
-<!-- [**Improving the precision of intranasal oxytocin -->
-<!-- research**](https://doi.org/10.1038/s41562-020-00996-4)<br> Winterton, -->
-<!-- Westlye, Steen, Andreassen, & Quintana, *Nature Human Behaviour* -->
-<!-- (2021)<br> Why better delivery methodology alone won't fix the field: -->
-<!-- stringent methods need a robust theory of what oxytocin does to ask -->
-<!-- meaningful questions of it. -->
-<!-- [[Preprint](https://osf.io/preprints/osf/gz5jb_v1)]{.featured-links} -->
-
-<!-- [**Oxytocin pathway gene networks in the human -->
-<!-- brain**](https://doi.org/10.1038/s41467-019-08503-8)<br> Quintana et -->
-<!-- al., *Nature Communications* (2019)<br> Voxel-by-voxel expression maps -->
-<!-- of *OXT*, *OXTR*, and *CD38* across the human brain, compared against -->
-<!-- 20,737 genes to identify putative pathway interactions. [[Open -->
-<!-- access](https://doi.org/10.1038/s41467-019-08503-8) · -->
-<!-- [Code](https://osf.io/jp6zs/)]{.featured-links} -->
-<!-- ::: -->
-
-<!-- [All publications →](publications.qmd) -->

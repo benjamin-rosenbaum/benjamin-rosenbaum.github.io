@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Courses – Benjamin Rosenbaum</title>
+<title>Software &amp; Tutorials – Benjamin Rosenbaum</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -81,12 +81,18 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Courses – Benjamin Rosenbaum">
-<meta property="og:image" content="https://dsquintana.com/profile_rosenbaum.jpg">
+<meta property="og:title" content="Software &amp; Tutorials – Benjamin Rosenbaum">
+<meta property="og:description" content="Academic homepage of Benjamin Rosenbaum — research, courses, and software.">
+<meta property="og:image" content="https://benjamin-rosenbaum.github.io/BayesFR_hex.png">
 <meta property="og:site_name" content="Benjamin Rosenbaum">
-<meta name="twitter:title" content="Courses – Benjamin Rosenbaum">
-<meta name="twitter:image" content="https://dsquintana.com/profile_rosenbaum.jpg">
+<meta property="og:image:height" content="600">
+<meta property="og:image:width" content="518">
+<meta name="twitter:title" content="Software &amp; Tutorials – Benjamin Rosenbaum">
+<meta name="twitter:description" content="Academic homepage of Benjamin Rosenbaum — research, courses, and software.">
+<meta name="twitter:image" content="https://benjamin-rosenbaum.github.io/BayesFR_hex.png">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="600">
+<meta name="twitter:image-width" content="518">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -277,11 +283,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Work</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./courses.html" aria-current="page"> 
+    <a class="nav-link" href="./courses.html"> 
 <span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./software.html"> 
+    <a class="nav-link active" href="./software.html" aria-current="page"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
@@ -318,7 +324,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Courses</h1>
+<h1 class="title">Software &amp; Tutorials</h1>
 </div>
 
 
@@ -335,31 +341,34 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div style="text-align: justify">
-<p>I teach statistics courses for researchers in ecology, but try to keep the material general enough to appeal to a broader audience. All my course materials are available on GitHub.</p>
-<section id="introduction-to-bayesian-statistics-in-r-brms" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-bayesian-statistics-in-r-brms">Introduction to Bayesian statistics in R &amp; brms</h2>
-<p><a href="https://github.com/benjamin-rosenbaum/bayesian-intro">Link</a></p>
-<p>4 days course</p>
-<p>The course offers a straightforward and practical approach to applied statistics using Bayesian inference for ecologists. It starts with a general introduction to statistical modeling and the concepts of Bayesian statistics (likelihood, priors, posterior distribution, MCMC sampling). We will move step-by-step from classical ANOVA and linear regression to generalized, nonlinear, or mixed-effects models, with a strong conceptual focus on the building blocks of statistical models.</p>
-<p>While previous software required users to code in specific modeling languages (JAGS, NIMBLE, Stan), we are focusing on the user-friendly and flexible R-package ‘brms’, which makes the transition easy for people familiar with ‘lm’ or ‘lme4’. An additional introduction to coding in Stan will be provided for interested participants.</p>
-<p>Participants learn how to practically conceptualize their research questions into statistical models. They learn how to specify and critically interpret models of varying complexity in R. The course prepares participants to analyze their own data with state-of-the-art methodology.</p>
-</section>
-<section id="introduction-to-nonlinear-modeling-with-brms" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-nonlinear-modeling-with-brms">Introduction to nonlinear modeling with brms</h2>
-<p><a href="https://github.com/benjamin-rosenbaum/nonlinear-statistics">Link</a></p>
-<p>1 day course</p>
-<p>Nonlinear models are central to ecology (e.g.&nbsp;growth, species interactions, thermal responses, …), yet fitting them to data often goes beyond classical GLMMs. Bayesian statistics offers a powerful solution. In this hands-on workshop, we will learn how to use brms to flexibly specify, fit, and interpret nonlinear prediction models with coding effort that barely exceeds lme4, and apply them to real ecological questions.</p>
-<p>General knowledge of statistical modeling is needed (ANOVA, linear regression, generalized linear models). Some experience with Bayesian statistics is helpful, but not required.</p>
-</section>
-<section id="introduction-to-linear-mixed-effects-models" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-linear-mixed-effects-models">Introduction to linear mixed-effects models</h2>
-<p>4 days course</p>
-<p><em>coming 2027</em></p>
-</section>
+<p>Some reusable R-code for statistical modeling and ecosystems simulation.</p>
+<section id="bayesfr-package" class="level2">
+<h2 class="anchored" data-anchor-id="bayesfr-package">BayesFR package</h2>
+<div style="float: right; width: 30%; margin: 0 0 0 2em;">
+<p><img src="BayesFR_hex.png" class="img-fluid"></p>
 </div>
+<p><a href="https://benjamin-rosenbaum.github.io/BayesFR/">Homepage</a></p>
+<p><a href="https://cran.r-project.org/web/packages/BayesFR/index.html">CRAN</a></p>
+<div style="text-align: justify">
+<p>Easy application of Bayesian inference for functional responses via brms.</p>
+<p>This package allows to fit various FR models for single- and multi-prey experiments by providing nonlinear prediction functions for brms. It uses dynamical prediction models to correct for prey depletion. The brms framework facilitates statistical modeling and enables users to conveniently incorporate covariates such as temperature gradients, experimental treatment variables, or random effects that account for grouping in experimental units. Default brms functions make it easy to perform model checking, model comparison and hypothesis testing. Potential statistical issues with data from feeding trials, such as overdispersion, can be resolved by effortlessly switching between likelihood functions.</p>
+<p>The BayesFR package, together with its tutorials, provides students and researchers with a comprehensive and integrated statistical framework for easily testing their hypotheses on trophic interactions.</p>
+</div>
+</section>
+<section id="fitting-multi-species-functional-responses" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-multi-species-functional-responses">Fitting multi-species functional responses</h2>
+<p><a href="https://github.com/benjamin-rosenbaum/multispecies_functional_responses">Link</a></p>
+<p>Online material for:</p>
+<p>B. Rosenbaum, J. Li, M.R. Hirt, R. Ryser, U. Brose (2024). Towards understanding interactions in a complex world: Design and analysis of multi-species functional response experiments. Methods in Ecology and Evolution <a href="https://doi.org/10.1111/2041-210X.14372">doi.org/10.1111/2041-210X.14372</a></p>
+</section>
+<section id="fitting-deterministic-population-models-in-r-using-rstan" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-deterministic-population-models-in-r-using-rstan">Fitting deterministic population models in R using RStan</h2>
+<p><a href="https://github.com/benjamin-rosenbaum/fitting_deterministic_population_models">Link</a></p>
+<p>A tutorial accompanying the publication:</p>
+<p>B. Rosenbaum, E.A. Fronhofer. 2023. Confronting population models with experimental microcosm data: from trajectory matching to state-space models. Ecosphere 14(4): e4503. <a href="https://doi.org/10.1002/ecs2.4503">doi.org/10.1002/ecs2.4503</a></p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -448,7 +457,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/dsquintana\.com");
+        var filterRegex = new RegExp("https:\/\/benjamin-rosenbaum\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }

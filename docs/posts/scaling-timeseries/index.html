@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Benjamin Rosenbaum">
+<meta name="dcterms.date" content="2026-10-29">
+<meta name="description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.">
 
-<title>Software &amp; Tutorials – Benjamin Rosenbaum</title>
+<title>Should you scale your time series for nonlinear analysis? – Benjamin Rosenbaum</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -29,27 +32,27 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1f46517410f5c07ffda16c25a958cb9c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-e2852b2c5371de2d035591ae10cf8502.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-1f46517410f5c07ffda16c25a958cb9c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1f46517410f5c07ffda16c25a958cb9c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-e2852b2c5371de2d035591ae10cf8502.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-1f46517410f5c07ffda16c25a958cb9c.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -79,20 +82,49 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Software &amp; Tutorials – Benjamin Rosenbaum">
-<meta property="og:description" content="Academic homepage of Benjamin Rosenbaum — research, courses, and software.">
-<meta property="og:image" content="https://dsquintana.com/BayesFR_hex.png">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../../styles.css">
+<meta property="og:title" content="Should you scale your time series for nonlinear analysis? – Benjamin Rosenbaum">
+<meta property="og:description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.">
+<meta property="og:image" content="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-3-1.png">
 <meta property="og:site_name" content="Benjamin Rosenbaum">
-<meta property="og:image:height" content="600">
-<meta property="og:image:width" content="518">
-<meta name="twitter:title" content="Software &amp; Tutorials – Benjamin Rosenbaum">
-<meta name="twitter:description" content="Academic homepage of Benjamin Rosenbaum — research, courses, and software.">
-<meta name="twitter:image" content="https://dsquintana.com/BayesFR_hex.png">
+<meta property="og:image:height" content="768">
+<meta property="og:image:width" content="1536">
+<meta name="twitter:title" content="Should you scale your time series for nonlinear analysis? – Benjamin Rosenbaum">
+<meta name="twitter:description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.">
+<meta name="twitter:image" content="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-3-1.png">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image-height" content="600">
-<meta name="twitter:image-width" content="518">
+<meta name="twitter:image-height" content="768">
+<meta name="twitter:image-width" content="1536">
 </head>
 
 <body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -264,7 +296,7 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Benjamin Rosenbaum</span>
     </a>
   </div>
@@ -275,27 +307,27 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html"> 
+    <a class="nav-link" href="../../index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./work.html"> 
+    <a class="nav-link" href="../../work.html"> 
 <span class="menu-text">Work</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./courses.html"> 
+    <a class="nav-link" href="../../courses.html"> 
 <span class="menu-text">Courses</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./software.html" aria-current="page"> 
+    <a class="nav-link" href="../../software.html"> 
 <span class="menu-text">Software</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./blog.html"> 
+    <a class="nav-link" href="../../blog.html"> 
 <span class="menu-text">Blog</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./cv.html"> 
+    <a class="nav-link" href="../../cv.html"> 
 <span class="menu-text">CV</span></a>
   </li>  
 </ul>
@@ -324,14 +356,31 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Software &amp; Tutorials</h1>
+<h1 class="title">Should you scale your time series for nonlinear analysis?</h1>
 </div>
 
+<div>
+  <div class="description">
+    Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.
+  </div>
+</div>
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Benjamin Rosenbaum </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 29, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -341,31 +390,84 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>Some reusable R-code for statistical modeling and ecosystems simulation.</p>
-<section id="bayesfr-package" class="level2">
-<h2 class="anchored" data-anchor-id="bayesfr-package">BayesFR package</h2>
-<div style="float: right; width: 30%; margin: 0 0 0 2em;">
-<p><img src="BayesFR_hex.png" class="img-fluid"></p>
+<section id="linear-and-nonlinear-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="linear-and-nonlinear-analysis">Linear and nonlinear analysis</h2>
+<p>Linear time series analysis is popular with observed time series of community abundances from the field. Classically, a multivariate time series of <span class="math inline">\(n\)</span> species <span class="math inline">\(X_t=(x_{1,t},\dots,x_{n,t})\)</span> is log-transformed <span class="math inline">\(Y_t=\log(X_t)\)</span>, before a multivariate autoregressive model <strong>MAR(1)</strong> is fitted <span class="math display">\[
+y_{i,t+1}=y_{i,t} + a_i+\sum_{j=1}^n b_{ij}y_{j,t}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t}
+\]</span> With matrix algebra, this can be written as <span class="math display">\[
+Y_{t+1}=Y_{t} + A+BY_{t}+CU_{t} + \varepsilon_{t}
+\]</span> where <span class="math inline">\(B\)</span> is an interaction matrix, and <span class="math inline">\(C\)</span> contains the effects of environmental variables <span class="math inline">\(U_t\)</span>. This model is purely linear. [Something about SSM, MARSS package, etc]</p>
+<p>This MAR(1) model actually corresponds to an ecological community model. If we transform densities back to the original scale, we get the discrete-time, multi-species <strong>Gompertz</strong> model.<br>
+<span class="math display">\[
+\begin{align}
+x_{i,t+1} &amp;=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{y_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right) \\
+&amp;=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{\log(x_{j,t})}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right)
+\end{align}
+\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
 </div>
-<p><a href="https://benjamin-rosenbaum.github.io/BayesFR/">Homepage</a></p>
-<p><a href="https://cran.r-project.org/web/packages/BayesFR/index.html">CRAN</a></p>
-<div style="text-align: justify">
-<p>Easy application of Bayesian inference for functional responses via brms.</p>
-<p>This package allows to fit various FR models for single- and multi-prey experiments by providing nonlinear prediction functions for brms. It uses dynamical prediction models to correct for prey depletion. The brms framework facilitates statistical modeling and enables users to conveniently incorporate covariates such as temperature gradients, experimental treatment variables, or random effects that account for grouping in experimental units. Default brms functions make it easy to perform model checking, model comparison and hypothesis testing. Potential statistical issues with data from feeding trials, such as overdispersion, can be resolved by effortlessly switching between likelihood functions.</p>
-<p>The BayesFR package, together with its tutorials, provides students and researchers with a comprehensive and integrated statistical framework for easily testing their hypotheses on trophic interactions.</p>
+</div>
+</div>
+<p>More common in modeling, however, is the generalized Lotka-Volterra model. In its discrete-time version, the <strong>Ricker</strong> model, it reads <span class="math display">\[
+x_{i,t+1} =x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right)
+\]</span> On logscale, it becomes an additive model just as the Gompertz, although it is not linear in <span class="math inline">\(y\)</span> anymore. However, it is still linear in its parameters, and by defining new predictors <span class="math inline">\(\exp(y_i)\)</span>, we could still push it through <code>lm(...)</code> to estimate all parameters [link to blog post]. <span class="math display">\[
+\begin{align}
+y_{i,t+1} &amp;=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \\
+&amp;=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{\exp(y_{j,t})}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \\
+\end{align}
+\]</span></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
-<section id="fitting-multi-species-functional-responses" class="level2">
-<h2 class="anchored" data-anchor-id="fitting-multi-species-functional-responses">Fitting multi-species functional responses</h2>
-<p><a href="https://github.com/benjamin-rosenbaum/multispecies_functional_responses">Link</a></p>
-<p>Online material for:</p>
-<p>B. Rosenbaum, J. Li, M.R. Hirt, R. Ryser, U. Brose (2024). Towards understanding interactions in a complex world: Design and analysis of multi-species functional response experiments. Methods in Ecology and Evolution <a href="https://doi.org/10.1111/2041-210X.14372">doi.org/10.1111/2041-210X.14372</a></p>
+<section id="scaling-and-reparametrization" class="level2">
+<h2 class="anchored" data-anchor-id="scaling-and-reparametrization">Scaling and reparametrization</h2>
+<p>For the linear MAR(1) / <strong>Gompertz</strong> model, it makes sense to scale log-transformed observations <span class="math inline">\(y_{i,t}\)</span> species-wise, i.e., <span class="math inline">\(\tilde y_{i,t}=\frac{y_{i,t}-\text{mean}(y_i)}{\text{sd}(y_i)}\)</span>. This effectively is a reparametrization of the model, with parameter estimates describing relative interaction strength. Setting up the MAR(1) equations for the scaled variables, we get <span class="math display">\[
+\begin{align}
+\tilde y_{i,t+1} &amp;= \tilde y_{i,t} + \tilde a_i+\sum_{j=1}^n \tilde b_{ij} \tilde y_{j,t}+\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
+\frac{y_{i,t+1}-\mu_i}{\sigma_i} &amp;= \frac{y_{i,t}-\mu_i}{\sigma_i} + \tilde a_i +\sum_{j=1}^n \tilde b_{ij}  \frac{y_{j,t}-\mu_j}{\sigma_j} +\sum_{j=1}^m \tilde c_{ij}u_{j,t}
+\end{align}
+\]</span> Now multiplying both sides by <span class="math inline">\(\sigma_i\)</span> and rearranging coefficients, we get the MAR(1) equations for the original log-abundances <span class="math inline">\(y_{i,t}\)</span>. <span class="math display">\[
+\begin{align}
+y_{i,t+1} &amp;= y_{i,t+1} + \sigma_i\tilde a_i +\sum_{j=1}^n \sigma_i\tilde b_{ij}  \frac{y_{j,t}-\mu_j}{\sigma_j} +\sum_{j=1}^m \sigma_i\tilde c_{ij}u_{j,t} \\
+&amp;= y_{i,t+1} + \underbrace{\sigma_i\tilde a_i - \sum_{j=1}^n \frac{\sigma_i}{\sigma_j}\tilde b_{ij} \mu_j }_{:= a_i}  + \sum_{j=1}^n \underbrace{\frac{\sigma_i}{\sigma_j}\tilde b_{ij}}_{:=b_{ij}}  y_{j,t}  +\sum_{j=1}^m \underbrace{\sigma_i\tilde c_{ij}}_{:=c_{ij}}u_{j,t} \\
+&amp;=  y_{i,t} +  a_i+\sum_{j=1}^n  b_{ij}  y_{j,t}+\sum_{j=1}^m  c_{ij}u_{j,t}
+\end{align}
+\]</span></p>
+<p>This only worked because the Gompertz model is, on logscale, linear both in the parameters as well as the state variables.</p>
+<p>It does not work the same way for the <strong>Ricker</strong> model. Here, reparameterization is only feasible for mean-centering <span class="math inline">\(\tilde y_{i,t}=y_{i,t}-\text{mean}(y_i)\)</span>.</p>
+<p><span class="math display">\[
+\begin{align}
+\tilde y_{i,t+1} &amp;= \tilde y_{i,t} + \tilde a_i+\sum_{j=1}^n \tilde b_{ij} \exp(\tilde y_{j,t})+\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
+{y_{i,t+1}-\mu_i} &amp;= {y_{i,t}-\mu_i} + \tilde a_i +\sum_{j=1}^n \tilde b_{ij}  \exp({y_{j,t}-\mu_j}) +\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
+{y_{i,t+1}} &amp;= {y_{i,t}} + \underbrace{\tilde a_i}_{:= a_i} +\sum_{j=1}^n  \underbrace{\frac{\tilde b_{ij}}{\exp(\mu_j)}}_{:=b_{ij}}   \exp({y_{j,t}}) +\sum_{j=1}^m \underbrace{\tilde c_{ij}}_{:=c_{ij}}u_{j,t} \\
+&amp;=  y_{i,t} +  a_i+\sum_{j=1}^n  b_{ij}  \exp(y_{j,t})+\sum_{j=1}^m  c_{ij}u_{j,t}
+\end{align}
+\]</span></p>
+<p>However, scaling <span class="math inline">\(\tilde y_{i,t}=\frac{y_{i,t}}{\text{sd}(y_i)}\)</span> we get stuck.</p>
+<p><span class="math display">\[
+\begin{align}
+\tilde y_{i,t+1} &amp;= \tilde y_{i,t} + \tilde a_i+\sum_{j=1}^n \tilde b_{ij} \exp(\tilde y_{j,t})+\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
+\frac{y_{i,t+1}}{\sigma_i} &amp;= \frac{y_{i,t+1}}{\sigma_i} + \tilde a_i+\sum_{j=1}^n \tilde b_{ij} \exp\left(\frac{y_{j,t}}{\sigma_i}\right)+\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
+y_{i,t+1} &amp;= y_{i,t+1} + \sigma_i\tilde a_i+\sum_{j=1}^n \sigma_i \tilde b_{ij} \exp(y_{j,t})^{1/ \sigma_i}+\sum_{j=1}^m \sigma_i \tilde c_{ij}u_{j,t}
+\end{align}
+\]</span> The nonlinear transformation of the Ricker-predictors <span class="math inline">\(\exp(y_{j,t})\)</span> (raised to the power <span class="math inline">\(1/\sigma_i\)</span>), does not allow us to transform these equations back to the original Ricker model by reparameterization of the model coefficients.</p>
 </section>
-<section id="fitting-deterministic-population-models-in-r-using-rstan" class="level2">
-<h2 class="anchored" data-anchor-id="fitting-deterministic-population-models-in-r-using-rstan">Fitting deterministic population models in R using RStan</h2>
-<p><a href="https://github.com/benjamin-rosenbaum/fitting_deterministic_population_models">Link</a></p>
-<p>A tutorial accompanying the publication:</p>
-<p>B. Rosenbaum, E.A. Fronhofer. 2023. Confronting population models with experimental microcosm data: from trajectory matching to state-space models. Ecosphere 14(4): e4503. <a href="https://doi.org/10.1002/ecs2.4503">doi.org/10.1002/ecs2.4503</a></p>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>When fitting an linear MAR(1) on log-scaled population abundances <span class="math inline">\(y_{i,t}\)</span> we can indeed mean-center and sd-scale the data. The result is still a Gompertz community model, and parameters for the non-scaled abundances can be obtained by simple transformations.</p>
+<p>The same holds for mean-centered data in the Ricker model. However, when also sd-scaling the data, we are not fitting a Ricker model anymore. Estimated parameters cannot be transformed back to the coefficients of generalized Lotka-Volterra model.</p>
 
 
 </section>
@@ -457,7 +559,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/dsquintana\.com");
+        var filterRegex = new RegExp("https:\/\/benjamin-rosenbaum\.github\.io");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -807,5 +909,5 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+<script src="../../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>

@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dir: _site
+  output-dir: docs
   render:
     - "*.qmd"
     - "posts/**/*.qmd"
@@ -16,10 +16,7 @@ project:
 website:
   title: "Benjamin Rosenbaum"
   description: "Academic homepage of Benjamin Rosenbaum — research, courses, and software."
-  # Must match Netlify's *primary* domain, or the sitemap and RSS feed will be
-  # full of URLs that redirect. On this site the apex is primary and www
-  # redirects to it — the reverse of the previous Hugo site.
-  site-url: "https://dsquintana.com"
+  site-url: "https://benjamin-rosenbaum.github.io"
   # Link preview cards on Bluesky, LinkedIn, Slack, Mastodon etc. Both need
   # site-url set above — without it the image path can't be made absolute, and
   # scrapers ignore relative ones.

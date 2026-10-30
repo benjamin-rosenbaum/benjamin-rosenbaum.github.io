@@ -6,20 +6,20 @@
       version="2.0">
 <channel>
 <title>Benjamin Rosenbaum</title>
-<link>https://dsquintana.com/blog.html</link>
-<atom:link href="https://dsquintana.com/blog.xml" rel="self" type="application/rss+xml"/>
+<link>https://benjamin-rosenbaum.github.io/blog.html</link>
+<atom:link href="https://benjamin-rosenbaum.github.io/blog.xml" rel="self" type="application/rss+xml"/>
 <description>Academic homepage of Benjamin Rosenbaum — research, courses, and software.</description>
 <image>
-<url>https://dsquintana.com/profile_rosenbaum.jpg</url>
+<url>https://benjamin-rosenbaum.github.io/profile_rosenbaum.jpg</url>
 <title>Benjamin Rosenbaum</title>
-<link>https://dsquintana.com/blog.html</link>
+<link>https://benjamin-rosenbaum.github.io/blog.html</link>
 </image>
 <generator>quarto-1.10.18</generator>
 <lastBuildDate>Wed, 28 Oct 2026 23:00:00 GMT</lastBuildDate>
 <item>
   <title>Should you scale your time series for nonlinear analysis?</title>
   <dc:creator>Benjamin Rosenbaum</dc:creator>
-  <link>https://dsquintana.com/posts/scaling-timeseries/</link>
+  <link>https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/</link>
   <description><![CDATA[ 
 
 
@@ -35,7 +35,7 @@
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://dsquintana.com/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -45,7 +45,7 @@
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://dsquintana.com/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -69,7 +69,7 @@
 </section>
 
  ]]></description>
-  <guid>https://dsquintana.com/posts/scaling-timeseries/</guid>
+  <guid>https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/</guid>
   <pubDate>Wed, 28 Oct 2026 23:00:00 GMT</pubDate>
 </item>
 </channel>
