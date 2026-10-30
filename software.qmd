@@ -1,0 +1,40 @@
+---
+title: "Software & Tutorials"
+---
+
+Some reusable R-code for statistical modeling and ecosystems simulation.
+
+## BayesFR package
+
+::: {style="float: right; width: 30%; margin: 0 0 0 2em;"}
+![](BayesFR_hex.png)
+:::
+
+[Homepage](https://benjamin-rosenbaum.github.io/BayesFR/)
+
+[CRAN](https://cran.r-project.org/web/packages/BayesFR/index.html)
+
+::: {style="text-align: justify"}
+Easy application of Bayesian inference for functional responses via brms.
+
+This package allows to fit various FR models for single- and multi-prey experiments by providing nonlinear prediction functions for brms. It uses dynamical prediction models to correct for prey depletion. The brms framework facilitates statistical modeling and enables users to conveniently incorporate covariates such as temperature gradients, experimental treatment variables, or random effects that account for grouping in experimental units. Default brms functions make it easy to perform model checking, model comparison and hypothesis testing. Potential statistical issues with data from feeding trials, such as overdispersion, can be resolved by effortlessly switching between likelihood functions.
+
+The BayesFR package, together with its tutorials, provides students and researchers with a comprehensive and integrated statistical framework for easily testing their hypotheses on trophic interactions.
+:::
+
+
+## Fitting multi-species functional responses
+
+[Link](https://github.com/benjamin-rosenbaum/multispecies_functional_responses)
+
+Online material for:
+
+B. Rosenbaum, J. Li, M.R. Hirt, R. Ryser, U. Brose (2024). Towards understanding interactions in a complex world: Design and analysis of multi-species functional response experiments. Methods in Ecology and Evolution [doi.org/10.1111/2041-210X.14372](https://doi.org/10.1111/2041-210X.14372)
+
+## Fitting deterministic population models in R using RStan
+
+[Link](https://github.com/benjamin-rosenbaum/fitting_deterministic_population_models)
+
+A tutorial accompanying the publication:
+
+B. Rosenbaum, E.A. Fronhofer. 2023. Confronting population models with experimental microcosm data: from trajectory matching to state-space models. Ecosphere 14(4): e4503. [doi.org/10.1002/ecs2.4503](https://doi.org/10.1002/ecs2.4503)

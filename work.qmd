@@ -1,0 +1,21 @@
+---
+title: "Work"
+---
+
+See my [Google Scholar profile](https://scholar.google.com/citations?user=_OHiB_AAAAAJ&hl=en) for a complete list of my publications.
+
+## Current
+
+### Species self-regulation
+
+I am currently working on detecting species self-regulation in community time series data. In theory, we should be able to detect negative density dependence of per capita growth rates in multi-species systems if a statistical model controls for resources, consumers, competitors and abiotic variables. However, data quality, nonlinear dynamics, and indirect effects could make it difficult to detect existing self-regulation or cause spurious effects to appear when self-regulation is non-existent. I am investigating both field data from a ciliate community and synthetic data from food-web simulations.
+
+Co-authors: Laurie Wojcik, Ursula Gaedke
+
+### BayesFR package
+
+I recently released the [BayesFR package](https://benjamin-rosenbaum.github.io/BayesFR/), which makes it easy to apply Bayesian inference to functional response data via brms. It comes with a detailed tutorial and numerous test cases. An accompanying methods paper is in preparation.
+
+
+
+## Past

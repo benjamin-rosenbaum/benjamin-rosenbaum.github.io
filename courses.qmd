@@ -1,0 +1,37 @@
+---
+title: "Courses"
+---
+
+::: {style="text-align: justify"}
+
+I teach statistics courses for researchers in ecology, but try to keep the material general enough to appeal to a broader audience. All my course materials are available on GitHub.
+
+## Introduction to Bayesian statistics in R & brms
+
+[Link](https://github.com/benjamin-rosenbaum/bayesian-intro)
+
+4 days course
+
+The course offers a straightforward and practical approach to applied statistics using Bayesian inference for ecologists. It starts with a general introduction to statistical modeling and the concepts of Bayesian statistics (likelihood, priors, posterior distribution, MCMC sampling). We will move step-by-step from classical ANOVA and linear regression to generalized, nonlinear, or mixed-effects models, with a strong conceptual focus on the building blocks of statistical models.
+
+While previous software required users to code in specific modeling languages (JAGS, NIMBLE, Stan), we are focusing on the user-friendly and flexible R-package ‘brms’, which makes the transition easy for people familiar with ‘lm’ or ‘lme4’. An additional introduction to coding in Stan will be provided for interested participants.
+
+Participants learn how to practically conceptualize their research questions into statistical models. They learn how to specify and critically interpret models of varying complexity in R. The course prepares participants to analyze their own data with state-of-the-art methodology.
+
+## Introduction to nonlinear modeling with brms
+
+[Link](https://github.com/benjamin-rosenbaum/nonlinear-statistics)
+
+1 day course
+
+Nonlinear models are central to ecology (e.g. growth, species interactions, thermal responses, ...), yet fitting them to data often goes beyond classical GLMMs. Bayesian statistics offers a powerful solution. In this hands-on workshop, we will learn how to use brms to flexibly specify, fit, and interpret nonlinear prediction models with coding effort that barely exceeds lme4, and apply them to real ecological questions.
+
+General knowledge of statistical modeling is needed (ANOVA, linear regression, generalized linear models). Some experience with Bayesian statistics is helpful, but not required.
+
+## Introduction to linear mixed-effects models
+
+4 days course
+
+*coming 2027*
+
+:::

@@ -1,0 +1,156 @@
+[
+  {
+    "objectID": "work.html",
+    "href": "work.html",
+    "title": "Work",
+    "section": "",
+    "text": "See my Google Scholar profile for a complete list of my publications."
+  },
+  {
+    "objectID": "work.html#current",
+    "href": "work.html#current",
+    "title": "Work",
+    "section": "Current",
+    "text": "Current\n\nSpecies self-regulation\nI am currently working on detecting species self-regulation in community time series data. In theory, we should be able to detect negative density dependence of per capita growth rates in multi-species systems if a statistical model controls for resources, consumers, competitors and abiotic variables. However, data quality, nonlinear dynamics, and indirect effects could make it difficult to detect existing self-regulation or cause spurious effects to appear when self-regulation is non-existent. I am investigating both field data from a ciliate community and synthetic data from food-web simulations.\nCo-authors: Laurie Wojcik, Ursula Gaedke\n\n\nBayesFR package\nI recently released the BayesFR package, which makes it easy to apply Bayesian inference to functional response data via brms. It comes with a detailed tutorial and numerous test cases. An accompanying methods paper is in preparation."
+  },
+  {
+    "objectID": "work.html#past",
+    "href": "work.html#past",
+    "title": "Work",
+    "section": "Past",
+    "text": "Past"
+  },
+  {
+    "objectID": "posts/scaling-timeseries/index.html",
+    "href": "posts/scaling-timeseries/index.html",
+    "title": "When you should not scale time series for nonlinear analysis",
+    "section": "",
+    "text": "Linear time series analysis is popular with observed time series of community abundances from the field. Classically, a multivariate time series of \\(n\\) species \\(X_t=(x_{1,t},\\dots,x_{n,t})\\) is log-transformed \\(Y_t=\\log(X_t)\\), before a multivariate autoregressive model MAR(1) is fitted \\[\ny_{i,t+1}=y_{i,t} + a_i+\\sum_{j=1}^n b_{ij}y_{j,t}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t}\n\\] With matrix algebra, this can be written as \\[\nY_{t+1}=Y_{t} + A+BY_{t}+CU_{t} + \\varepsilon_{t}\n\\] where \\(B\\) is an interaction matrix, and \\(C\\) contains the effects of environmental variables \\(U_t\\). This model is purely linear. [Something about SSM, MARSS package, etc]\nThis MAR(1) model actually corresponds to an ecological community model. If we transform densities back to the original scale, we get the discrete-time, multi-species Gompertz model.\n\\[\n\\begin{align}\nx_{i,t+1} &=x_{i,t} \\cdot \\exp\\left( a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{y_{j,t}}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\right) \\\\\n&=x_{i,t} \\cdot \\exp\\left( a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{\\log(x_{j,t})}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\right)\n\\end{align}\n\\]\n\n\n\n\n\n\n\n\n\nMore common in modeling, however, is the generalized Lotka-Volterra model. In its discrete-time version, the Ricker model, it reads \\[\nx_{i,t+1} =x_{i,t} \\cdot \\exp\\left( a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{x_{j,t}}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\right)\n\\] On logscale, it becomes an additive model just as the Gompertz, although it is not linear in \\(y\\) anymore. However, it is still linear in its parameters, and by defining new predictors \\(\\exp(y_i)\\), we could still push it through lm(...) to estimate all parameters [link to blog post]. \\[\n\\begin{align}\ny_{i,t+1} &=y_{i,t} +  a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{x_{j,t}}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\\\\n&=y_{i,t} +  a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{\\exp(y_{j,t})}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\\\\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "posts/scaling-timeseries/index.html#linear-and-nonlinear-analysis",
+    "href": "posts/scaling-timeseries/index.html#linear-and-nonlinear-analysis",
+    "title": "When you should not scale time series for nonlinear analysis",
+    "section": "",
+    "text": "Linear time series analysis is popular with observed time series of community abundances from the field. Classically, a multivariate time series of \\(n\\) species \\(X_t=(x_{1,t},\\dots,x_{n,t})\\) is log-transformed \\(Y_t=\\log(X_t)\\), before a multivariate autoregressive model MAR(1) is fitted \\[\ny_{i,t+1}=y_{i,t} + a_i+\\sum_{j=1}^n b_{ij}y_{j,t}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t}\n\\] With matrix algebra, this can be written as \\[\nY_{t+1}=Y_{t} + A+BY_{t}+CU_{t} + \\varepsilon_{t}\n\\] where \\(B\\) is an interaction matrix, and \\(C\\) contains the effects of environmental variables \\(U_t\\). This model is purely linear. [Something about SSM, MARSS package, etc]\nThis MAR(1) model actually corresponds to an ecological community model. If we transform densities back to the original scale, we get the discrete-time, multi-species Gompertz model.\n\\[\n\\begin{align}\nx_{i,t+1} &=x_{i,t} \\cdot \\exp\\left( a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{y_{j,t}}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\right) \\\\\n&=x_{i,t} \\cdot \\exp\\left( a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{\\log(x_{j,t})}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\right)\n\\end{align}\n\\]\n\n\n\n\n\n\n\n\n\nMore common in modeling, however, is the generalized Lotka-Volterra model. In its discrete-time version, the Ricker model, it reads \\[\nx_{i,t+1} =x_{i,t} \\cdot \\exp\\left( a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{x_{j,t}}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\right)\n\\] On logscale, it becomes an additive model just as the Gompertz, although it is not linear in \\(y\\) anymore. However, it is still linear in its parameters, and by defining new predictors \\(\\exp(y_i)\\), we could still push it through lm(...) to estimate all parameters [link to blog post]. \\[\n\\begin{align}\ny_{i,t+1} &=y_{i,t} +  a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{x_{j,t}}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\\\\n&=y_{i,t} +  a_i+\\sum_{j=1}^n b_{ij}\\textcolor{red}{\\exp(y_{j,t})}+\\sum_{j=1}^m c_{ij}u_{j,t} + \\varepsilon_{i,t} \\\\\n\\end{align}\n\\]"
+  },
+  {
+    "objectID": "posts/scaling-timeseries/index.html#scaling-and-reparametrization",
+    "href": "posts/scaling-timeseries/index.html#scaling-and-reparametrization",
+    "title": "When you should not scale time series for nonlinear analysis",
+    "section": "Scaling and reparametrization",
+    "text": "Scaling and reparametrization\nFor the linear MAR(1) / Gompertz model, it makes sense to scale log-transformed observations \\(y_{i,t}\\) species-wise, i.e., \\(\\tilde y_{i,t}=\\frac{y_{i,t}-\\text{mean}(y_i)}{\\text{sd}(y_i)}\\). This effectively is a reparametrization of the model, with parameter estimates describing relative interaction strength. Setting up the MAR(1) equations for the scaled variables, we get \\[\n\\begin{align}\n\\tilde y_{i,t+1} &= \\tilde y_{i,t} + \\tilde a_i+\\sum_{j=1}^n \\tilde b_{ij} \\tilde y_{j,t}+\\sum_{j=1}^m \\tilde c_{ij}u_{j,t} \\\\\n\\frac{y_{i,t+1}-\\mu_i}{\\sigma_i} &= \\frac{y_{i,t}-\\mu_i}{\\sigma_i} + \\tilde a_i +\\sum_{j=1}^n \\tilde b_{ij}  \\frac{y_{j,t}-\\mu_j}{\\sigma_j} +\\sum_{j=1}^m \\tilde c_{ij}u_{j,t}\n\\end{align}\n\\] Now multiplying both sides by \\(\\sigma_i\\) and rearranging coefficients, we get the MAR(1) equations for the original log-abundances \\(y_{i,t}\\). \\[\n\\begin{align}\ny_{i,t+1} &= y_{i,t+1} + \\sigma_i\\tilde a_i +\\sum_{j=1}^n \\sigma_i\\tilde b_{ij}  \\frac{y_{j,t}-\\mu_j}{\\sigma_j} +\\sum_{j=1}^m \\sigma_i\\tilde c_{ij}u_{j,t} \\\\\n&= y_{i,t+1} + \\underbrace{\\sigma_i\\tilde a_i - \\sum_{j=1}^n \\frac{\\sigma_i}{\\sigma_j}\\tilde b_{ij} \\mu_j }_{:= a_i}  + \\sum_{j=1}^n \\underbrace{\\frac{\\sigma_i}{\\sigma_j}\\tilde b_{ij}}_{:=b_{ij}}  y_{j,t}  +\\sum_{j=1}^m \\underbrace{\\sigma_i\\tilde c_{ij}}_{:=c_{ij}}u_{j,t} \\\\\n&=  y_{i,t} +  a_i+\\sum_{j=1}^n  b_{ij}  y_{j,t}+\\sum_{j=1}^m  c_{ij}u_{j,t}\n\\end{align}\n\\]\nThis only worked because the Gompertz model is, on logscale, linear both in the parameters as well as the state variables.\nIt does not work the same way for the Ricker model. Here, reparameterization is only feasible for mean-centering \\(\\tilde y_{i,t}=y_{i,t}-\\text{mean}(y_i)\\).\n\\[\n\\begin{align}\n\\tilde y_{i,t+1} &= \\tilde y_{i,t} + \\tilde a_i+\\sum_{j=1}^n \\tilde b_{ij} \\exp(\\tilde y_{j,t})+\\sum_{j=1}^m \\tilde c_{ij}u_{j,t} \\\\\n{y_{i,t+1}-\\mu_i} &= {y_{i,t}-\\mu_i} + \\tilde a_i +\\sum_{j=1}^n \\tilde b_{ij}  \\exp({y_{j,t}-\\mu_j}) +\\sum_{j=1}^m \\tilde c_{ij}u_{j,t} \\\\\n{y_{i,t+1}} &= {y_{i,t}} + \\underbrace{\\tilde a_i}_{:= a_i} +\\sum_{j=1}^n  \\underbrace{\\frac{\\tilde b_{ij}}{\\exp(\\mu_j)}}_{:=b_{ij}}   \\exp({y_{j,t}}) +\\sum_{j=1}^m \\underbrace{\\tilde c_{ij}}_{:=c_{ij}}u_{j,t} \\\\\n&=  y_{i,t} +  a_i+\\sum_{j=1}^n  b_{ij}  \\exp(y_{j,t})+\\sum_{j=1}^m  c_{ij}u_{j,t}\n\\end{align}\n\\]\nHowever, scaling \\(\\tilde y_{i,t}=\\frac{y_{i,t}}{\\text{sd}(y_i)}\\) we get stuck.\n\\[\n\\begin{align}\n\\tilde y_{i,t+1} &= \\tilde y_{i,t} + \\tilde a_i+\\sum_{j=1}^n \\tilde b_{ij} \\exp(\\tilde y_{j,t})+\\sum_{j=1}^m \\tilde c_{ij}u_{j,t} \\\\\n\\frac{y_{i,t+1}}{\\sigma_i} &= \\frac{y_{i,t+1}}{\\sigma_i} + \\tilde a_i+\\sum_{j=1}^n \\tilde b_{ij} \\exp\\left(\\frac{y_{j,t}}{\\sigma_i}\\right)+\\sum_{j=1}^m \\tilde c_{ij}u_{j,t} \\\\\ny_{i,t+1} &= y_{i,t+1} + \\sigma_i\\tilde a_i+\\sum_{j=1}^n \\sigma_i \\tilde b_{ij} \\exp(y_{j,t})^{1/ \\sigma_i}+\\sum_{j=1}^m \\sigma_i \\tilde c_{ij}u_{j,t}\n\\end{align}\n\\] The nonlinear transformation of the Ricker-predictors \\(\\exp(y_{j,t})\\) (raised to the power \\(1/\\sigma_i\\)), does not allow us to transform these equations back to the original Ricker model by reparameterization of the model coefficients."
+  },
+  {
+    "objectID": "posts/scaling-timeseries/index.html#conclusions",
+    "href": "posts/scaling-timeseries/index.html#conclusions",
+    "title": "When you should not scale time series for nonlinear analysis",
+    "section": "Conclusions",
+    "text": "Conclusions\nWhen fitting an linear MAR(1) on log-scaled population abundances \\(y_{i,t}\\) we can indeed mean-center and sd-scale the data. The result is still a Gompertz community model, and parameters for the non-scaled abundances can be obtained by simple transformations.\nThe same holds for mean-centered data in the Ricker model. However, when also sd-scaling the data, we are not fitting a Ricker model anymore. Estimated parameters cannot be transformed back to the coefficients of generalized Lotka-Volterra model."
+  },
+  {
+    "objectID": "cv.html",
+    "href": "cv.html",
+    "title": "CV",
+    "section": "",
+    "text": "Researcher and statistical consultant at German Centre for Integrative Biodiversity Research Halle-Jena-Leipzig (iDiv)"
+  },
+  {
+    "objectID": "cv.html#positions",
+    "href": "cv.html#positions",
+    "title": "CV",
+    "section": "Positions",
+    "text": "Positions\nStatistical Consultant  ⦁  German Centre for Integrative Biodiversity Research Halle-Jena-Leipzig  ⦁  2026–\nPostdoctoral Researcher  ⦁  German Centre for Integrative Biodiversity Research Halle-Jena-Leipzig  ⦁   Friedrich-Schiller-University Jena  ⦁  2015–2025\nPostdoctoral Researcher  ⦁  Max Planck Institute for Evolutionary Anthropology Leipzig  ⦁  2014–2015"
+  },
+  {
+    "objectID": "cv.html#education",
+    "href": "cv.html#education",
+    "title": "CV",
+    "section": "Education",
+    "text": "Education\nPhD, Applied Mathematics  ⦁  Department of Mathematics, University of Trier  ⦁  2013\nDiploma, Applied Mathematics (MSc equivalent)  ⦁  University of Trier  ⦁  2009"
+  },
+  {
+    "objectID": "cv.html#editorial-work",
+    "href": "cv.html#editorial-work",
+    "title": "CV",
+    "section": "Editorial work",
+    "text": "Editorial work\nPCI Ecology"
+  },
+  {
+    "objectID": "cv.html#profiles",
+    "href": "cv.html#profiles",
+    "title": "CV",
+    "section": "Profiles",
+    "text": "Profiles\nGoogle Scholar  ⦁  GitHub  ⦁  ORCID  ⦁  ResearchGate  ⦁  Bluesky"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "When you should not scale time series for nonlinear analysis\n\n\nPopulation and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.\n\n\n\n\n\nOct 29, 2026\n\n\nBenjamin Rosenbaum\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "courses.html",
+    "href": "courses.html",
+    "title": "Courses",
+    "section": "",
+    "text": "I teach statistics courses for researchers in ecology, but try to keep the material general enough to appeal to a broader audience. All my course materials are available on GitHub.\n\n\nLink\n4 days course\nThe course offers a straightforward and practical approach to applied statistics using Bayesian inference for ecologists. It starts with a general introduction to statistical modeling and the concepts of Bayesian statistics (likelihood, priors, posterior distribution, MCMC sampling). We will move step-by-step from classical ANOVA and linear regression to generalized, nonlinear, or mixed-effects models, with a strong conceptual focus on the building blocks of statistical models.\nWhile previous software required users to code in specific modeling languages (JAGS, NIMBLE, Stan), we are focusing on the user-friendly and flexible R-package ‘brms’, which makes the transition easy for people familiar with ‘lm’ or ‘lme4’. An additional introduction to coding in Stan will be provided for interested participants.\nParticipants learn how to practically conceptualize their research questions into statistical models. They learn how to specify and critically interpret models of varying complexity in R. The course prepares participants to analyze their own data with state-of-the-art methodology.\n\n\n\nLink\n1 day course\nNonlinear models are central to ecology (e.g. growth, species interactions, thermal responses, …), yet fitting them to data often goes beyond classical GLMMs. Bayesian statistics offers a powerful solution. In this hands-on workshop, we will learn how to use brms to flexibly specify, fit, and interpret nonlinear prediction models with coding effort that barely exceeds lme4, and apply them to real ecological questions.\nGeneral knowledge of statistical modeling is needed (ANOVA, linear regression, generalized linear models). Some experience with Bayesian statistics is helpful, but not required.\n\n\n\n4 days course\ncoming 2027"
+  },
+  {
+    "objectID": "courses.html#introduction-to-bayesian-statistics-in-r-brms",
+    "href": "courses.html#introduction-to-bayesian-statistics-in-r-brms",
+    "title": "Courses",
+    "section": "",
+    "text": "Link\n4 days course\nThe course offers a straightforward and practical approach to applied statistics using Bayesian inference for ecologists. It starts with a general introduction to statistical modeling and the concepts of Bayesian statistics (likelihood, priors, posterior distribution, MCMC sampling). We will move step-by-step from classical ANOVA and linear regression to generalized, nonlinear, or mixed-effects models, with a strong conceptual focus on the building blocks of statistical models.\nWhile previous software required users to code in specific modeling languages (JAGS, NIMBLE, Stan), we are focusing on the user-friendly and flexible R-package ‘brms’, which makes the transition easy for people familiar with ‘lm’ or ‘lme4’. An additional introduction to coding in Stan will be provided for interested participants.\nParticipants learn how to practically conceptualize their research questions into statistical models. They learn how to specify and critically interpret models of varying complexity in R. The course prepares participants to analyze their own data with state-of-the-art methodology."
+  },
+  {
+    "objectID": "courses.html#introduction-to-nonlinear-modeling-with-brms",
+    "href": "courses.html#introduction-to-nonlinear-modeling-with-brms",
+    "title": "Courses",
+    "section": "",
+    "text": "Link\n1 day course\nNonlinear models are central to ecology (e.g. growth, species interactions, thermal responses, …), yet fitting them to data often goes beyond classical GLMMs. Bayesian statistics offers a powerful solution. In this hands-on workshop, we will learn how to use brms to flexibly specify, fit, and interpret nonlinear prediction models with coding effort that barely exceeds lme4, and apply them to real ecological questions.\nGeneral knowledge of statistical modeling is needed (ANOVA, linear regression, generalized linear models). Some experience with Bayesian statistics is helpful, but not required."
+  },
+  {
+    "objectID": "courses.html#introduction-to-linear-mixed-effects-models",
+    "href": "courses.html#introduction-to-linear-mixed-effects-models",
+    "title": "Courses",
+    "section": "",
+    "text": "4 days course\ncoming 2027"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Benjamin Rosenbaum",
+    "section": "",
+    "text": "I am a researcher with a background in applied mathematics who turned to theoretical and quantitative ecology. I am fascinated by the feedback loop between ecological theory and empirical research, the ability to describe ecological systems through mathematical abstractions from reality, and the impact such models have for understanding the complexity and stability found in natural systems.\nI am enthusiastic about knowledge transfer (math, stats, computation) and making methods available for non-specialists. I want to reach out through teaching, consulting, collaborations and writing method papers.\nMy scientific focus lies at the interface of modeling and statistics, including topics like population dynamics, time series, species interactions, functional responses and food webs. Specifically, I use Bayesian inference for estimating critical system parameters like growth or feeding rates from, e.g. experimental time-series data or feeding experiments. This allows modeling population dynamics by differential equations with meaningful parametrizations."
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Software & Tutorials",
+    "section": "",
+    "text": "Some reusable R-code for statistical modeling and ecosystems simulation."
+  },
+  {
+    "objectID": "software.html#bayesfr-package",
+    "href": "software.html#bayesfr-package",
+    "title": "Software & Tutorials",
+    "section": "BayesFR package",
+    "text": "BayesFR package\n\n\n\nHomepage\nCRAN\n\nEasy application of Bayesian inference for functional responses via brms.\nThis package allows to fit various FR models for single- and multi-prey experiments by providing nonlinear prediction functions for brms. It uses dynamical prediction models to correct for prey depletion. The brms framework facilitates statistical modeling and enables users to conveniently incorporate covariates such as temperature gradients, experimental treatment variables, or random effects that account for grouping in experimental units. Default brms functions make it easy to perform model checking, model comparison and hypothesis testing. Potential statistical issues with data from feeding trials, such as overdispersion, can be resolved by effortlessly switching between likelihood functions.\nThe BayesFR package, together with its tutorials, provides students and researchers with a comprehensive and integrated statistical framework for easily testing their hypotheses on trophic interactions."
+  },
+  {
+    "objectID": "software.html#fitting-multi-species-functional-responses",
+    "href": "software.html#fitting-multi-species-functional-responses",
+    "title": "Software & Tutorials",
+    "section": "Fitting multi-species functional responses",
+    "text": "Fitting multi-species functional responses\nLink\nOnline material for:\nB. Rosenbaum, J. Li, M.R. Hirt, R. Ryser, U. Brose (2024). Towards understanding interactions in a complex world: Design and analysis of multi-species functional response experiments. Methods in Ecology and Evolution doi.org/10.1111/2041-210X.14372"
+  },
+  {
+    "objectID": "software.html#fitting-deterministic-population-models-in-r-using-rstan",
+    "href": "software.html#fitting-deterministic-population-models-in-r-using-rstan",
+    "title": "Software & Tutorials",
+    "section": "Fitting deterministic population models in R using RStan",
+    "text": "Fitting deterministic population models in R using RStan\nLink\nA tutorial accompanying the publication:\nB. Rosenbaum, E.A. Fronhofer. 2023. Confronting population models with experimental microcosm data: from trajectory matching to state-space models. Ecosphere 14(4): e4503. doi.org/10.1002/ecs2.4503"
+  }
+]
