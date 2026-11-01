@@ -3,6 +3,8 @@ title: "Should you scale your time series for nonlinear analysis?"
 description: "Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale."
 author: "Benjamin Rosenbaum"
 date: "2026-10-29"
+bibliography: references.bib
+csl: british-ecological-society.csl
 editor:
   markdown: 
     wrap: 72
@@ -22,16 +24,13 @@ library("patchwork")
 
 Linear time series analysis is popular with observed time series of community abundances from the field. Classically, a multivariate time series of $n$ species $X_t=(x_{1,t},\dots,x_{n,t})$ is log-transformed $Y_t=\log(X_t)$, before a multivariate autoregressive model **MAR(1)** is fitted
 $$
-y_{i,t+1}=y_{i,t} + a_i+\sum_{j=1}^n b_{ij}y_{j,t}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t}
+y_{i,t+1}=y_{i,t} + a_i+\sum_{j=1}^n b_{ij}y_{j,t}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t},
 $$
-With matrix algebra, this can be written as
+see e.g.\ @ives_estimating_2003, @mutshinda_what_2009, @hampton_quantifying_2013. With matrix algebra, this can be written as
 $$
 Y_{t+1}=Y_{t} + A+BY_{t}+CU_{t} + \varepsilon_{t}
 $$
-where $B$ is an interaction matrix, and $C$ contains the effects of environmental variables $U_t$. This model is purely linear. [Something about SSM, MARSS package, etc]
-```{r}
-
-```
+where $B$ is an interaction matrix, and $C$ contains the effects of environmental variables $U_t$. This model is purely linear. The MARSS package is a popular tool for analysis [@holmes_r_2012].
 
 
 This MAR(1) model actually corresponds to an ecological community model. If we transform densities back to the original scale, we get the discrete-time, multi-species **Gompertz** model.  
@@ -82,9 +81,9 @@ p1 + p2
 
 More common in modeling, however, is the generalized Lotka-Volterra model. In its discrete-time version, the **Ricker** model, it reads
 $$
-x_{i,t+1} =x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right) 
+x_{i,t+1} =x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right), 
 $$
-On logscale, it becomes an additive model just as the Gompertz, although it is not linear in $y$ anymore. However, it is still linear in its parameters, and by defining new predictors $\exp(y_i)$, we could still push it through `lm(...)` to estimate all parameters [link to blog post]. 
+e.g.\ @mutshinda_density_2023. On logscale, it becomes an additive model just as the Gompertz, although it is not linear in $y$ anymore. However, it is still linear in its parameters, and by defining new predictors $\exp(y_i)$, we could still push it through `lm(...)` to estimate all parameters [seperate blog post coming soon]. 
 $$
 \begin{align}
 y_{i,t+1} &=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \\
@@ -176,3 +175,5 @@ The nonlinear transformation of the Ricker-predictors $\exp(y_{j,t})$ (raised to
 When fitting an linear MAR(1) on log-scaled population abundances $y_{i,t}$ we can indeed mean-center and sd-scale the data. The result is still a Gompertz community model, and parameters for the non-scaled abundances can be obtained by simple transformations.
 
 The same holds for mean-centered data in the Ricker model. However, when also sd-scaling the data, we are not fitting a Ricker model anymore. Estimated parameters cannot be transformed back to the coefficients of generalized Lotka-Volterra model.
+
+

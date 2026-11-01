@@ -29,7 +29,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -115,13 +134,13 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Should you scale your time series for nonlinear analysis? – Benjamin Rosenbaum">
 <meta property="og:description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.">
-<meta property="og:image" content="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-3-1.png">
+<meta property="og:image" content="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-2-1.png">
 <meta property="og:site_name" content="Benjamin Rosenbaum">
 <meta property="og:image:height" content="768">
 <meta property="og:image:width" content="1536">
 <meta name="twitter:title" content="Should you scale your time series for nonlinear analysis? – Benjamin Rosenbaum">
 <meta name="twitter:description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.">
-<meta name="twitter:image" content="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-3-1.png">
+<meta name="twitter:image" content="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-2-1.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image-height" content="768">
 <meta name="twitter:image-width" content="1536">
@@ -393,10 +412,10 @@ window.Quarto = {
 <section id="linear-and-nonlinear-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="linear-and-nonlinear-analysis">Linear and nonlinear analysis</h2>
 <p>Linear time series analysis is popular with observed time series of community abundances from the field. Classically, a multivariate time series of <span class="math inline">\(n\)</span> species <span class="math inline">\(X_t=(x_{1,t},\dots,x_{n,t})\)</span> is log-transformed <span class="math inline">\(Y_t=\log(X_t)\)</span>, before a multivariate autoregressive model <strong>MAR(1)</strong> is fitted <span class="math display">\[
-y_{i,t+1}=y_{i,t} + a_i+\sum_{j=1}^n b_{ij}y_{j,t}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t}
-\]</span> With matrix algebra, this can be written as <span class="math display">\[
+y_{i,t+1}=y_{i,t} + a_i+\sum_{j=1}^n b_{ij}y_{j,t}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t},
+\]</span> see e.g.&nbsp;<span class="citation" data-cites="ives_estimating_2003">Ives <em>et al.</em> (<a href="#ref-ives_estimating_2003" role="doc-biblioref">2003</a>)</span>, <span class="citation" data-cites="mutshinda_what_2009">Mutshinda, O’Hara &amp; Woiwod (<a href="#ref-mutshinda_what_2009" role="doc-biblioref">2009</a>)</span>, <span class="citation" data-cites="hampton_quantifying_2013">Hampton <em>et al.</em> (<a href="#ref-hampton_quantifying_2013" role="doc-biblioref">2013</a>)</span>. With matrix algebra, this can be written as <span class="math display">\[
 Y_{t+1}=Y_{t} + A+BY_{t}+CU_{t} + \varepsilon_{t}
-\]</span> where <span class="math inline">\(B\)</span> is an interaction matrix, and <span class="math inline">\(C\)</span> contains the effects of environmental variables <span class="math inline">\(U_t\)</span>. This model is purely linear. [Something about SSM, MARSS package, etc]</p>
+\]</span> where <span class="math inline">\(B\)</span> is an interaction matrix, and <span class="math inline">\(C\)</span> contains the effects of environmental variables <span class="math inline">\(U_t\)</span>. This model is purely linear. The MARSS package is a popular tool for analysis <span class="citation" data-cites="holmes_r_2012">(<a href="#ref-holmes_r_2012" role="doc-biblioref">Holmes, Ward &amp; Wills 2012</a>)</span>.</p>
 <p>This MAR(1) model actually corresponds to an ecological community model. If we transform densities back to the original scale, we get the discrete-time, multi-species <strong>Gompertz</strong> model.<br>
 <span class="math display">\[
 \begin{align}
@@ -408,14 +427,14 @@ x_{i,t+1} &amp;=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>More common in modeling, however, is the generalized Lotka-Volterra model. In its discrete-time version, the <strong>Ricker</strong> model, it reads <span class="math display">\[
-x_{i,t+1} =x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right)
-\]</span> On logscale, it becomes an additive model just as the Gompertz, although it is not linear in <span class="math inline">\(y\)</span> anymore. However, it is still linear in its parameters, and by defining new predictors <span class="math inline">\(\exp(y_i)\)</span>, we could still push it through <code>lm(...)</code> to estimate all parameters [link to blog post]. <span class="math display">\[
+x_{i,t+1} =x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right),
+\]</span> e.g.&nbsp;<span class="citation" data-cites="mutshinda_density_2023">Mutshinda <em>et al.</em> (<a href="#ref-mutshinda_density_2023" role="doc-biblioref">2023</a>)</span>. On logscale, it becomes an additive model just as the Gompertz, although it is not linear in <span class="math inline">\(y\)</span> anymore. However, it is still linear in its parameters, and by defining new predictors <span class="math inline">\(\exp(y_i)\)</span>, we could still push it through <code>lm(...)</code> to estimate all parameters [seperate blog post coming soon]. <span class="math display">\[
 \begin{align}
 y_{i,t+1} &amp;=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \\
 &amp;=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{\exp(y_{j,t})}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \\
@@ -425,7 +444,7 @@ y_{i,t+1} &amp;=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -470,9 +489,26 @@ y_{i,t+1} &amp;= y_{i,t+1} + \sigma_i\tilde a_i+\sum_{j=1}^n \sigma_i \tilde b_{
 <p>The same holds for mean-centered data in the Ricker model. However, when also sd-scaling the data, we are not fitting a Ricker model anymore. Estimated parameters cannot be transformed back to the coefficients of generalized Lotka-Volterra model.</p>
 
 
+
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-hampton_quantifying_2013" class="csl-entry" role="listitem">
+Hampton, S.E., Holmes, E.E., Scheef, L.P., Scheuerell, M.D., Katz, S.L., Pendleton, D.E. &amp; Ward, E.J. (2013) <a href="https://doi.org/10.1890/13-0996.1">Quantifying effects of abiotic and biotic drivers on community dynamics with multivariate autoregressive (<span>MAR</span>) models</a>. <em>Ecology</em>, <strong>94</strong>, 2663–2669.
+</div>
+<div id="ref-holmes_r_2012" class="csl-entry" role="listitem">
+Holmes, E.E., Ward, E.J. &amp; Wills, K. (2012) <a href="https://doi.org/10.32614/RJ-2012-002"><span>MARSS</span>: <span>Multivariate</span> <span>Autoregressive</span> <span>State</span>-space <span>Models</span> for <span>Analyzing</span> <span>Time</span>-series <span>Data</span></a>. <em>The R Journal</em>, <strong>4</strong>, 11–19.
+</div>
+<div id="ref-ives_estimating_2003" class="csl-entry" role="listitem">
+Ives, A.R., Dennis, B., Cottingham, K.L. &amp; Carpenter, S.R. (2003) <a href="https://www.jstor.org/stable/3100019">Estimating <span>Community</span> <span>Stability</span> and <span>Ecological</span> <span>Interactions</span> from <span>Time</span>-<span>Series</span> <span>Data</span></a>. <em>Ecological Monographs</em>, <strong>73</strong>, 301–330.
+</div>
+<div id="ref-mutshinda_density_2023" class="csl-entry" role="listitem">
+Mutshinda, C.M., Mishra, A., Finkel, Z.V. &amp; Irwin, A.J. (2023) <a href="https://doi.org/10.7717/peerj.14701">Density regulation amplifies environmentally induced population fluctuations</a>. <em>PeerJ</em>, <strong>11</strong>, e14701.
+</div>
+<div id="ref-mutshinda_what_2009" class="csl-entry" role="listitem">
+Mutshinda, C.M., O’Hara, R.B. &amp; Woiwod, I.P. (2009) <a href="https://doi.org/10.1098/rspb.2009.0523">What drives community dynamics?</a> <em>Proc. Biol. Sci.</em>, <strong>276</strong>, 2923–2929.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right

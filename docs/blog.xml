@@ -28,24 +28,24 @@
 
 <section id="linear-and-nonlinear-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="linear-and-nonlinear-analysis">Linear and nonlinear analysis</h2>
-<p>Linear time series analysis is popular with observed time series of community abundances from the field. Classically, a multivariate time series of <img src="https://latex.codecogs.com/png.latex?n"> species <img src="https://latex.codecogs.com/png.latex?X_t=(x_%7B1,t%7D,%5Cdots,x_%7Bn,t%7D)"> is log-transformed <img src="https://latex.codecogs.com/png.latex?Y_t=%5Clog(X_t)">, before a multivariate autoregressive model <strong>MAR(1)</strong> is fitted <img src="https://latex.codecogs.com/png.latex?%0Ay_%7Bi,t+1%7D=y_%7Bi,t%7D%20+%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7Dy_%7Bj,t%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%0A"> With matrix algebra, this can be written as <img src="https://latex.codecogs.com/png.latex?%0AY_%7Bt+1%7D=Y_%7Bt%7D%20+%20A+BY_%7Bt%7D+CU_%7Bt%7D%20+%20%5Cvarepsilon_%7Bt%7D%0A"> where <img src="https://latex.codecogs.com/png.latex?B"> is an interaction matrix, and <img src="https://latex.codecogs.com/png.latex?C"> contains the effects of environmental variables <img src="https://latex.codecogs.com/png.latex?U_t">. This model is purely linear. [Something about SSM, MARSS package, etc]</p>
+<p>Linear time series analysis is popular with observed time series of community abundances from the field. Classically, a multivariate time series of <img src="https://latex.codecogs.com/png.latex?n"> species <img src="https://latex.codecogs.com/png.latex?X_t=(x_%7B1,t%7D,%5Cdots,x_%7Bn,t%7D)"> is log-transformed <img src="https://latex.codecogs.com/png.latex?Y_t=%5Clog(X_t)">, before a multivariate autoregressive model <strong>MAR(1)</strong> is fitted <img src="https://latex.codecogs.com/png.latex?%0Ay_%7Bi,t+1%7D=y_%7Bi,t%7D%20+%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7Dy_%7Bj,t%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D,%0A"> see e.g.&nbsp;<span class="citation" data-cites="ives_estimating_2003">Ives <em>et al.</em> (2003)</span>, <span class="citation" data-cites="mutshinda_what_2009">Mutshinda, O’Hara &amp; Woiwod (2009)</span>, <span class="citation" data-cites="hampton_quantifying_2013">Hampton <em>et al.</em> (2013)</span>. With matrix algebra, this can be written as <img src="https://latex.codecogs.com/png.latex?%0AY_%7Bt+1%7D=Y_%7Bt%7D%20+%20A+BY_%7Bt%7D+CU_%7Bt%7D%20+%20%5Cvarepsilon_%7Bt%7D%0A"> where <img src="https://latex.codecogs.com/png.latex?B"> is an interaction matrix, and <img src="https://latex.codecogs.com/png.latex?C"> contains the effects of environmental variables <img src="https://latex.codecogs.com/png.latex?U_t">. This model is purely linear. The MARSS package is a popular tool for analysis <span class="citation" data-cites="holmes_r_2012">(Holmes, Ward &amp; Wills 2012)</span>.</p>
 <p>This MAR(1) model actually corresponds to an ecological community model. If we transform densities back to the original scale, we get the discrete-time, multi-species <strong>Gompertz</strong> model.<br>
 <img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%7D%0Ax_%7Bi,t+1%7D%20&amp;=x_%7Bi,t%7D%20%5Ccdot%20%5Cexp%5Cleft(%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7D%5Ctextcolor%7Bred%7D%7By_%7Bj,t%7D%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%20%5Cright)%20%5C%5C%0A&amp;=x_%7Bi,t%7D%20%5Ccdot%20%5Cexp%5Cleft(%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7D%5Ctextcolor%7Bred%7D%7B%5Clog(x_%7Bj,t%7D)%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%20%5Cright)%0A%5Cend%7Balign%7D%0A"></p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>More common in modeling, however, is the generalized Lotka-Volterra model. In its discrete-time version, the <strong>Ricker</strong> model, it reads <img src="https://latex.codecogs.com/png.latex?%0Ax_%7Bi,t+1%7D%20=x_%7Bi,t%7D%20%5Ccdot%20%5Cexp%5Cleft(%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7D%5Ctextcolor%7Bred%7D%7Bx_%7Bj,t%7D%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%20%5Cright)%0A"> On logscale, it becomes an additive model just as the Gompertz, although it is not linear in <img src="https://latex.codecogs.com/png.latex?y"> anymore. However, it is still linear in its parameters, and by defining new predictors <img src="https://latex.codecogs.com/png.latex?%5Cexp(y_i)">, we could still push it through <code>lm(...)</code> to estimate all parameters [link to blog post]. <img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%7D%0Ay_%7Bi,t+1%7D%20&amp;=y_%7Bi,t%7D%20+%20%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7D%5Ctextcolor%7Bred%7D%7Bx_%7Bj,t%7D%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%20%5C%5C%0A&amp;=y_%7Bi,t%7D%20+%20%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7D%5Ctextcolor%7Bred%7D%7B%5Cexp(y_%7Bj,t%7D)%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%20%5C%5C%0A%5Cend%7Balign%7D%0A"></p>
+<p>More common in modeling, however, is the generalized Lotka-Volterra model. In its discrete-time version, the <strong>Ricker</strong> model, it reads <img src="https://latex.codecogs.com/png.latex?%0Ax_%7Bi,t+1%7D%20=x_%7Bi,t%7D%20%5Ccdot%20%5Cexp%5Cleft(%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7D%5Ctextcolor%7Bred%7D%7Bx_%7Bj,t%7D%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%20%5Cright),%0A"> e.g.&nbsp;<span class="citation" data-cites="mutshinda_density_2023">Mutshinda <em>et al.</em> (2023)</span>. On logscale, it becomes an additive model just as the Gompertz, although it is not linear in <img src="https://latex.codecogs.com/png.latex?y"> anymore. However, it is still linear in its parameters, and by defining new predictors <img src="https://latex.codecogs.com/png.latex?%5Cexp(y_i)">, we could still push it through <code>lm(...)</code> to estimate all parameters [seperate blog post coming soon]. <img src="https://latex.codecogs.com/png.latex?%0A%5Cbegin%7Balign%7D%0Ay_%7Bi,t+1%7D%20&amp;=y_%7Bi,t%7D%20+%20%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7D%5Ctextcolor%7Bred%7D%7Bx_%7Bj,t%7D%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%20%5C%5C%0A&amp;=y_%7Bi,t%7D%20+%20%20a_i+%5Csum_%7Bj=1%7D%5En%20b_%7Bij%7D%5Ctextcolor%7Bred%7D%7B%5Cexp(y_%7Bj,t%7D)%7D+%5Csum_%7Bj=1%7D%5Em%20c_%7Bij%7Du_%7Bj,t%7D%20+%20%5Cvarepsilon_%7Bi,t%7D%20%5C%5C%0A%5Cend%7Balign%7D%0A"></p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<p><img src="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
@@ -66,9 +66,26 @@
 <p>The same holds for mean-centered data in the Ricker model. However, when also sd-scaling the data, we are not fitting a Ricker model anymore. Estimated parameters cannot be transformed back to the coefficients of generalized Lotka-Volterra model.</p>
 
 
+
 </section>
 
- ]]></description>
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-hampton_quantifying_2013" class="csl-entry">
+Hampton, S.E., Holmes, E.E., Scheef, L.P., Scheuerell, M.D., Katz, S.L., Pendleton, D.E. &amp; Ward, E.J. (2013) <a href="https://doi.org/10.1890/13-0996.1">Quantifying effects of abiotic and biotic drivers on community dynamics with multivariate autoregressive (<span>MAR</span>) models</a>. <em>Ecology</em>, <strong>94</strong>, 2663–2669.
+</div>
+<div id="ref-holmes_r_2012" class="csl-entry">
+Holmes, E.E., Ward, E.J. &amp; Wills, K. (2012) <a href="https://doi.org/10.32614/RJ-2012-002"><span>MARSS</span>: <span>Multivariate</span> <span>Autoregressive</span> <span>State</span>-space <span>Models</span> for <span>Analyzing</span> <span>Time</span>-series <span>Data</span></a>. <em>The R Journal</em>, <strong>4</strong>, 11–19.
+</div>
+<div id="ref-ives_estimating_2003" class="csl-entry">
+Ives, A.R., Dennis, B., Cottingham, K.L. &amp; Carpenter, S.R. (2003) <a href="https://www.jstor.org/stable/3100019">Estimating <span>Community</span> <span>Stability</span> and <span>Ecological</span> <span>Interactions</span> from <span>Time</span>-<span>Series</span> <span>Data</span></a>. <em>Ecological Monographs</em>, <strong>73</strong>, 301–330.
+</div>
+<div id="ref-mutshinda_density_2023" class="csl-entry">
+Mutshinda, C.M., Mishra, A., Finkel, Z.V. &amp; Irwin, A.J. (2023) <a href="https://doi.org/10.7717/peerj.14701">Density regulation amplifies environmentally induced population fluctuations</a>. <em>PeerJ</em>, <strong>11</strong>, e14701.
+</div>
+<div id="ref-mutshinda_what_2009" class="csl-entry">
+Mutshinda, C.M., O’Hara, R.B. &amp; Woiwod, I.P. (2009) <a href="https://doi.org/10.1098/rspb.2009.0523">What drives community dynamics?</a> <em>Proc. Biol. Sci.</em>, <strong>276</strong>, 2923–2929.
+</div>
+</div></section></div> ]]></description>
   <guid>https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/</guid>
   <pubDate>Wed, 28 Oct 2026 23:00:00 GMT</pubDate>
 </item>

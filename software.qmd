@@ -29,7 +29,7 @@ The BayesFR package, together with its tutorials, provides students and research
 
 Online material for:
 
-B. Rosenbaum, J. Li, M.R. Hirt, R. Ryser, U. Brose (2024). Towards understanding interactions in a complex world: Design and analysis of multi-species functional response experiments. Methods in Ecology and Evolution [doi.org/10.1111/2041-210X.14372](https://doi.org/10.1111/2041-210X.14372)
+B. Rosenbaum, J. Li, M.R. Hirt, R. Ryser, U. Brose (2024). Towards understanding interactions in a complex world: Design and analysis of multi-species functional response experiments. *Methods in Ecology and Evolution* 15, 1704–1719. [doi.org/10.1111/2041-210X.14372](https://doi.org/10.1111/2041-210X.14372)
 
 ## Fitting deterministic population models in R using RStan
 
@@ -37,4 +37,4 @@ B. Rosenbaum, J. Li, M.R. Hirt, R. Ryser, U. Brose (2024). Towards understanding
 
 A tutorial accompanying the publication:
 
-B. Rosenbaum, E.A. Fronhofer. 2023. Confronting population models with experimental microcosm data: from trajectory matching to state-space models. Ecosphere 14(4): e4503. [doi.org/10.1002/ecs2.4503](https://doi.org/10.1002/ecs2.4503)
+B. Rosenbaum, E.A. Fronhofer (2023). Confronting population models with experimental microcosm data: from trajectory matching to state-space models. *Ecosphere* 14(4): e4503. [doi.org/10.1002/ecs2.4503](https://doi.org/10.1002/ecs2.4503)
