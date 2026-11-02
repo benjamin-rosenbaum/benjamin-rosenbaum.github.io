@@ -419,7 +419,9 @@ Y_{t+1}=Y_{t} + A+BY_{t}+CU_{t} + \varepsilon_{t}
 <p>This MAR(1) model actually corresponds to an ecological community model. If we transform densities back to the original scale, we get the discrete-time, multi-species <strong>Gompertz</strong> model.<br>
 <span class="math display">\[
 \begin{align}
-x_{i,t+1} &amp;=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{y_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right) \\
+x_{i,t+1} &amp;= \exp(y_{i,t+1}) \\
+&amp;= \exp\left( y_{i,t} + a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{y_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right) \\
+&amp;=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{y_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right) \\
 &amp;=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{\log(x_{j,t})}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right)
 \end{align}
 \]</span></p>
@@ -486,7 +488,7 @@ y_{i,t+1} &amp;= y_{i,t+1} + \sigma_i\tilde a_i+\sum_{j=1}^n \sigma_i \tilde b_{
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
 <p>When fitting an linear MAR(1) to log-scaled population abundances <span class="math inline">\(y_{i,t}\)</span> we can indeed mean-center and sd-scale the data. The result is still a Gompertz community model, and the parameters for the non-scaled abundances can be obtained via simple transformations.</p>
-<p>The same applies to mean-centered data in the Ricker model. However, if we also sd-scale the data, we are no longer fitting a Ricker model. Estimated parameters cannot be transformed back into the coefficients of generalized Lotka-Volterra model.</p>
+<p>The same applies to mean-centered data in the Ricker model. However, if we also sd-scale the data, we are no longer fitting a Ricker model. Estimated parameters cannot be transformed back into the coefficients of the generalized Lotka-Volterra model.</p>
 
 
 

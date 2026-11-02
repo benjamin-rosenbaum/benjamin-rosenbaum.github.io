@@ -36,7 +36,9 @@ where $B$ is an interaction matrix, and $C$ contains the effects of environmenta
 This MAR(1) model actually corresponds to an ecological community model. If we transform densities back to the original scale, we get the discrete-time, multi-species **Gompertz** model.  
 $$
 \begin{align}
-x_{i,t+1} &=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{y_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right) \\
+x_{i,t+1} &= \exp(y_{i,t+1}) \\
+&= \exp\left( y_{i,t} + a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{y_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right) \\
+&=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{y_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right) \\
 &=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{\log(x_{j,t})}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right)
 \end{align}
 $$
@@ -174,6 +176,6 @@ The nonlinear transformation of the Ricker-predictors $\exp(y_{j,t})$ (raised to
 
 When fitting an linear MAR(1) to log-scaled population abundances $y_{i,t}$ we can indeed mean-center and sd-scale the data. The result is still a Gompertz community model, and the parameters for the non-scaled abundances can be obtained via simple transformations.
 
-The same applies to mean-centered data in the Ricker model. However, if we also sd-scale the data, we are no longer fitting a Ricker model. Estimated parameters cannot be transformed back into the coefficients of generalized Lotka-Volterra model.
+The same applies to mean-centered data in the Ricker model. However, if we also sd-scale the data, we are no longer fitting a Ricker model. Estimated parameters cannot be transformed back into the coefficients of the generalized Lotka-Volterra model.
 
 
