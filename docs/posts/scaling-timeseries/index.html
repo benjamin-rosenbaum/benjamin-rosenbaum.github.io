@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Benjamin Rosenbaum">
-<meta name="dcterms.date" content="2026-10-29">
-<meta name="description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.">
+<meta name="dcterms.date" content="2026-11-01">
+<meta name="description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it generally does not with nonlinear analysis. This also depends on whether you analyze on a linear or on log-scale.">
 
 <title>Should you scale your time series for nonlinear analysis? – Benjamin Rosenbaum</title>
 <style>
@@ -133,13 +133,13 @@ window.Quarto = {
 
 <link rel="stylesheet" href="../../styles.css">
 <meta property="og:title" content="Should you scale your time series for nonlinear analysis? – Benjamin Rosenbaum">
-<meta property="og:description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.">
+<meta property="og:description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it generally does not with nonlinear analysis. This also depends on whether you analyze on a linear or on log-scale.">
 <meta property="og:image" content="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-2-1.png">
 <meta property="og:site_name" content="Benjamin Rosenbaum">
 <meta property="og:image:height" content="768">
 <meta property="og:image:width" content="1536">
 <meta name="twitter:title" content="Should you scale your time series for nonlinear analysis? – Benjamin Rosenbaum">
-<meta name="twitter:description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.">
+<meta name="twitter:description" content="Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it generally does not with nonlinear analysis. This also depends on whether you analyze on a linear or on log-scale.">
 <meta name="twitter:image" content="https://benjamin-rosenbaum.github.io/posts/scaling-timeseries/index_files/figure-html/unnamed-chunk-2-1.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image-height" content="768">
@@ -380,7 +380,7 @@ window.Quarto = {
 
 <div>
   <div class="description">
-    Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it does generally not with nonlinear analysis. This also depends on whether you analyze on linear or on log-scale.
+    Population and community time series are often scaled (mean-centered and scaled by standard deviation) before analysis. While this works with linear models, it generally does not with nonlinear analysis. This also depends on whether you analyze on a linear or on log-scale.
   </div>
 </div>
 
@@ -397,7 +397,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 29, 2026</p>
+      <p class="date">November 1, 2026</p>
     </div>
   </div>
   
@@ -434,7 +434,7 @@ x_{i,t+1} &amp;=x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{
 </div>
 <p>More common in modeling, however, is the generalized Lotka-Volterra model. In its discrete-time version, the <strong>Ricker</strong> model, it reads <span class="math display">\[
 x_{i,t+1} =x_{i,t} \cdot \exp\left( a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \right),
-\]</span> e.g.&nbsp;<span class="citation" data-cites="mutshinda_density_2023">Mutshinda <em>et al.</em> (<a href="#ref-mutshinda_density_2023" role="doc-biblioref">2023</a>)</span>. On logscale, it becomes an additive model just as the Gompertz, although it is not linear in <span class="math inline">\(y\)</span> anymore. However, it is still linear in its parameters, and by defining new predictors <span class="math inline">\(\exp(y_i)\)</span>, we could still push it through <code>lm(...)</code> to estimate all parameters [seperate blog post coming soon]. <span class="math display">\[
+\]</span> e.g.&nbsp;<span class="citation" data-cites="mutshinda_density_2023">Mutshinda <em>et al.</em> (<a href="#ref-mutshinda_density_2023" role="doc-biblioref">2023</a>)</span>. On logscale, it becomes an additive model just like the Gompertz model, although it is no longer linear in <span class="math inline">\(y\)</span>. However, it is still linear in its parameters. I.e., under certain assumptions (observation error is negligible compared to process error) and by defining new predictors <span class="math inline">\(\exp(y_i)\)</span>, it can be pushed through MARSS or even <code>lm(...)</code> to estimate all parameters [seperate blog post coming soon]. <span class="math display">\[
 \begin{align}
 y_{i,t+1} &amp;=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \\
 &amp;=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{\exp(y_{j,t})}+\sum_{j=1}^m c_{ij}u_{j,t} + \varepsilon_{i,t} \\
@@ -452,20 +452,20 @@ y_{i,t+1} &amp;=y_{i,t} +  a_i+\sum_{j=1}^n b_{ij}\textcolor{red}{x_{j,t}}+\sum_
 </section>
 <section id="scaling-and-reparametrization" class="level2">
 <h2 class="anchored" data-anchor-id="scaling-and-reparametrization">Scaling and reparametrization</h2>
-<p>For the linear MAR(1) / <strong>Gompertz</strong> model, it makes sense to scale log-transformed observations <span class="math inline">\(y_{i,t}\)</span> species-wise, i.e., <span class="math inline">\(\tilde y_{i,t}=\frac{y_{i,t}-\text{mean}(y_i)}{\text{sd}(y_i)}\)</span>. This effectively is a reparametrization of the model, with parameter estimates describing relative interaction strength. Setting up the MAR(1) equations for the scaled variables, we get <span class="math display">\[
+<p>For the linear MAR(1) / <strong>Gompertz</strong> model, it makes sense to scale log-transformed observations <span class="math inline">\(y_{i,t}\)</span> species-wise, i.e., <span class="math inline">\(\tilde y_{i,t}=\frac{y_{i,t}-\text{mean}(y_i)}{\text{sd}(y_i)}\)</span>. This is effectively a reparametrisation of the model, with the parameter estimates describing the relative interaction strength. Setting up the MAR(1) equations for the scaled variables gives us <span class="math display">\[
 \begin{align}
 \tilde y_{i,t+1} &amp;= \tilde y_{i,t} + \tilde a_i+\sum_{j=1}^n \tilde b_{ij} \tilde y_{j,t}+\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
 \frac{y_{i,t+1}-\mu_i}{\sigma_i} &amp;= \frac{y_{i,t}-\mu_i}{\sigma_i} + \tilde a_i +\sum_{j=1}^n \tilde b_{ij}  \frac{y_{j,t}-\mu_j}{\sigma_j} +\sum_{j=1}^m \tilde c_{ij}u_{j,t}
 \end{align}
-\]</span> Now multiplying both sides by <span class="math inline">\(\sigma_i\)</span> and rearranging coefficients, we get the MAR(1) equations for the original log-abundances <span class="math inline">\(y_{i,t}\)</span>. <span class="math display">\[
+\]</span> Now multiplying both sides by <span class="math inline">\(\sigma_i\)</span> and rearranging the coefficients gives us the MAR(1) equations for the original log-abundances <span class="math inline">\(y_{i,t}\)</span>. <span class="math display">\[
 \begin{align}
 y_{i,t+1} &amp;= y_{i,t+1} + \sigma_i\tilde a_i +\sum_{j=1}^n \sigma_i\tilde b_{ij}  \frac{y_{j,t}-\mu_j}{\sigma_j} +\sum_{j=1}^m \sigma_i\tilde c_{ij}u_{j,t} \\
 &amp;= y_{i,t+1} + \underbrace{\sigma_i\tilde a_i - \sum_{j=1}^n \frac{\sigma_i}{\sigma_j}\tilde b_{ij} \mu_j }_{:= a_i}  + \sum_{j=1}^n \underbrace{\frac{\sigma_i}{\sigma_j}\tilde b_{ij}}_{:=b_{ij}}  y_{j,t}  +\sum_{j=1}^m \underbrace{\sigma_i\tilde c_{ij}}_{:=c_{ij}}u_{j,t} \\
 &amp;=  y_{i,t} +  a_i+\sum_{j=1}^n  b_{ij}  y_{j,t}+\sum_{j=1}^m  c_{ij}u_{j,t}
 \end{align}
 \]</span></p>
-<p>This only worked because the Gompertz model is, on logscale, linear both in the parameters as well as the state variables.</p>
-<p>It does not work the same way for the <strong>Ricker</strong> model. Here, reparameterization is only feasible for mean-centering <span class="math inline">\(\tilde y_{i,t}=y_{i,t}-\text{mean}(y_i)\)</span>.</p>
+<p>This only worked because the Gompertz model is, on logscale, linear for both the parameters and the state variables.</p>
+<p>The <strong>Ricker</strong> model does not work in the same way. Here, reparameterization is only feasible for mean-centering <span class="math inline">\(\tilde y_{i,t}=y_{i,t}-\text{mean}(y_i)\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
 \tilde y_{i,t+1} &amp;= \tilde y_{i,t} + \tilde a_i+\sum_{j=1}^n \tilde b_{ij} \exp(\tilde y_{j,t})+\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
@@ -474,19 +474,19 @@ y_{i,t+1} &amp;= y_{i,t+1} + \sigma_i\tilde a_i +\sum_{j=1}^n \sigma_i\tilde b_{
 &amp;=  y_{i,t} +  a_i+\sum_{j=1}^n  b_{ij}  \exp(y_{j,t})+\sum_{j=1}^m  c_{ij}u_{j,t}
 \end{align}
 \]</span></p>
-<p>However, scaling <span class="math inline">\(\tilde y_{i,t}=\frac{y_{i,t}}{\text{sd}(y_i)}\)</span> we get stuck.</p>
+<p>However, we get stuck when scaling to <span class="math inline">\(\tilde y_{i,t}=\frac{y_{i,t}}{\text{sd}(y_i)}\)</span>.</p>
 <p><span class="math display">\[
 \begin{align}
 \tilde y_{i,t+1} &amp;= \tilde y_{i,t} + \tilde a_i+\sum_{j=1}^n \tilde b_{ij} \exp(\tilde y_{j,t})+\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
 \frac{y_{i,t+1}}{\sigma_i} &amp;= \frac{y_{i,t+1}}{\sigma_i} + \tilde a_i+\sum_{j=1}^n \tilde b_{ij} \exp\left(\frac{y_{j,t}}{\sigma_i}\right)+\sum_{j=1}^m \tilde c_{ij}u_{j,t} \\
 y_{i,t+1} &amp;= y_{i,t+1} + \sigma_i\tilde a_i+\sum_{j=1}^n \sigma_i \tilde b_{ij} \exp(y_{j,t})^{1/ \sigma_i}+\sum_{j=1}^m \sigma_i \tilde c_{ij}u_{j,t}
 \end{align}
-\]</span> The nonlinear transformation of the Ricker-predictors <span class="math inline">\(\exp(y_{j,t})\)</span> (raised to the power <span class="math inline">\(1/\sigma_i\)</span>), does not allow us to transform these equations back to the original Ricker model by reparameterization of the model coefficients.</p>
+\]</span> The nonlinear transformation of the Ricker-predictors <span class="math inline">\(\exp(y_{j,t})\)</span> (raised to the power <span class="math inline">\(1/\sigma_i\)</span>), does not allow us to reparameterize the model coefficients and transform these equations back to the original Ricker model.</p>
 </section>
 <section id="conclusions" class="level2">
 <h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
-<p>When fitting an linear MAR(1) on log-scaled population abundances <span class="math inline">\(y_{i,t}\)</span> we can indeed mean-center and sd-scale the data. The result is still a Gompertz community model, and parameters for the non-scaled abundances can be obtained by simple transformations.</p>
-<p>The same holds for mean-centered data in the Ricker model. However, when also sd-scaling the data, we are not fitting a Ricker model anymore. Estimated parameters cannot be transformed back to the coefficients of generalized Lotka-Volterra model.</p>
+<p>When fitting an linear MAR(1) to log-scaled population abundances <span class="math inline">\(y_{i,t}\)</span> we can indeed mean-center and sd-scale the data. The result is still a Gompertz community model, and the parameters for the non-scaled abundances can be obtained via simple transformations.</p>
+<p>The same applies to mean-centered data in the Ricker model. However, if we also sd-scale the data, we are no longer fitting a Ricker model. Estimated parameters cannot be transformed back into the coefficients of generalized Lotka-Volterra model.</p>
 
 
 
